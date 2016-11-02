@@ -1,0 +1,20 @@
+{
+  "name": "nodeprefmeasure",
+  "version": "1.0.0",
+  "description": "Latency Measurements of a simple Node.js project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": {
+    "name": "Ernie Salazar",
+    "email": "salazare@verizon.net"
+  },
+  "jshintConfig": {
+    "esversion": 6
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "ws": "^1.1.1"
+  }
+}

@@ -1,0 +1,20 @@
+{
+    "devtools_port": 9090,
+    "startup_app": {
+        "name": "NodePerfMeasure",
+        "url": "http://<<URL_AND_PORT>>/",
+        "uuid": "NodePerfMeasure",
+        "applicationIcon": "http://<<URL_AND_PORT>>/images/eikos-logo-multi.ico",
+        "autoShow": true
+    },
+    "runtime": {
+        "arguments": "",
+        "version": "stable"
+    },
+    "shortcut": {
+        "company": "Eikos Partners",
+        "description": "Latency Measurements of a simple Node.js project",
+        "icon": "http://<<URL_AND_PORT>>/images/eikos-logo-multi.ico",
+        "name": "Node Performance Measure"
+    }
+}

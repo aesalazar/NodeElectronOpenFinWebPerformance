@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eikos Partners OpenFin Installer</title>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <style type="text/css">
+        body {
+            background: black;
+            color: yellow;
+            padding: 0 10px;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        img {
+            height: 40px;
+            width: 40px;
+            padding-right: 15px;
+            vertical-align: middle;
+        }
+
+        input {
+            background: #f3d311;
+            color: black;
+            font-weight: bold;
+            font-size: 18px;
+            height: 40px;
+            width: 120px;
+            margin-left: 200px;
+        }
+
+    </style>
+
+
+</head>
+<body>
+    <h2>
+        <img src="images/eikos-logo-multi.ico" alt="logo" />
+        Eikos OpenFin Demo Installation
+    </h2>
+
+    <div>
+        <input type="button" value="Download" onclick='launchInstall();' />
+    </div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+
+    function launchInstall() {
+        var hostname = location.hostname;
+        var port = location.port.length > 0 ? "%3A" + location.port : "";
+        var url = "https://install.openfin.co/download/?config=http%3A%2F%2F" + hostname + port + "%2Fapp.json";
+        window.open(url);
+    }
+
+</script>

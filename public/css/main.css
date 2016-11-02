@@ -1,0 +1,33 @@
+body {
+  background: black;
+  color: yellow;
+  padding: 0 10px;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+a:link, a:visited {
+  color: red; 
+  text-decoration: underline;
+}
+
+img {
+  height: 40px;
+  width: 40px;
+  padding-right: 15px;
+  vertical-align: middle;
+}
+
+button {
+  background: #f3d311;
+  color: black;
+  font-weight: bold;
+  height: 30px;
+  width: 120px;
+}
+textarea {
+  width: 95%; 
+  height:100px;
+  background: #5a5743;;
+  color: white;
+}
