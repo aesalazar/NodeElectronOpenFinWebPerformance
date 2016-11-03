@@ -22,6 +22,10 @@ function connect(callback) {
 
     ws.onopen = function(ev) {
         logText("WS connection established: " + (ws.readyState === ws.OPEN));
+
+        //Start measure of latencyStartTime
+        latencySetInterval = setInterval(ping, 2000);
+    
         if (callback != null)
             callback();
     };
@@ -101,9 +105,6 @@ function closeStream() {
     clearInterval(latencySetInterval);    
     ws.send(JSON.stringify({call: "closeDataStream"}));
 }
-
-//Start measure of latencyStartTime
-latencySetInterval = setInterval(ping, 2000);
 
 //Create the connection
 connect();
