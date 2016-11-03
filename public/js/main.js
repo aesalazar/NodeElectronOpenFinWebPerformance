@@ -83,14 +83,14 @@ function logText(text){
 }
 
 function ping(){
-    connect(() => {
+    connect(function() {
         latencyStartTime = new Date().getTime();
         ws.send(JSON.stringify({ call: "ping", stamp: latencyStartTime }));
     });         
 }
 
 function openStream() {
-    connect(() => {
+    connect(function() {
         ws.send(JSON.stringify({call: "openDataStream", args: [100]}));
     });
 }
