@@ -13,21 +13,24 @@
 </head>
 
 <body>
-  <div>
-      <button onclick="ping()">Ping</button>
-      <label>- Send Ping Request</label>
-  </div>
+    <div>
+        <div class="divButtons">
+            <div>
+                <button onclick="openStream()" >Open Data Stream</button>
+            </div>
+            <div>
+                <button onclick="closeStream()" >Close Data Stream</button>
+            </div>
+            <div>
+                <textarea id="logTextArea"></textarea>
+            </div>
+        </div>
 
-  <div>
-      <button onclick="sendMessage()" >Send Data</button>
-      <label>- Send some test data</label>
-  </div>
+        <div id="divOutputArea" class="divOutput">
+        </div>
+    </div>
 
-  <div>
-      <textarea id="logTextArea"></textarea>
-  </div>
-
-  <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 
 </body>
 </html>

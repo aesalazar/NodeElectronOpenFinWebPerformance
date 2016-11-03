@@ -23,11 +23,26 @@ button {
   color: black;
   font-weight: bold;
   height: 30px;
-  width: 120px;
+  width: 100%;
+  margin-bottom: 5px;
 }
-textarea {
-  width: 95%; 
-  height:100px;
-  background: #5a5743;;
-  color: white;
+
+.divButtons {
+  float:left;
+  width: 300px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.divButtons textarea {
+  height: calc(100vh - 95px);
+  width: calc(100% - 6px);
+}
+
+.divOutput{
+  float:left;
+  width: calc(100% - 340px);
+  height: calc(100vh - 20px);
+  background-color: gray;
+  overflow-x: auto;
 }

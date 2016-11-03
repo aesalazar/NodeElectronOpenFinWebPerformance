@@ -1,8 +1,17 @@
-var ws;
-var log = document.getElementById("logTextArea");
+var logTextArea = document.getElementById("logTextArea");
+var divOutputArea = document.getElementById("divOutputArea");
 var latencyStartTime;
+var currentLatency;
+var latencySetInterval;
+var ws;
 
-function connect() {
+function connect(callback) {
+    if (ws != null && ws.readyState === ws.OPEN) {
+        if (callback != null)
+            callback();
+        return;
+    }
+    
     //Create the url for the WebSocket
     var hostname = location.hostname;
     var port = location.port.length > 0 ? ":" + location.port : "";
@@ -12,40 +21,89 @@ function connect() {
     ws = new WebSocket(endpoint);
 
     ws.onopen = function(ev) {
-        log.textContent += "WS connection established: " + (ws.readyState === ws.OPEN) + "\n\n";
-    }
+        logText("WS connection established: " + (ws.readyState === ws.OPEN));
+        if (callback != null)
+            callback();
+    };
 
     //Listen for responses from the server
     ws.onmessage = function (ev) {
+        var responseStartTime = new Date().getTime();
 
-    //See if this is a ping response
-    if (ev.data.substr(0, 4) === "pong") {
-        if (parseInt(ev.data.substr(4)) === latencyStartTime) {
-        var currentLatency = new Date().getTime() - latencyStartTime;
-        log.textContent += "WS pong received from server: " + currentLatency + "ms\n";
+        //See if this is a ping response
+        if (ev.data.substr(0, 4) === "pong") {
+            if (parseInt(ev.data.substr(4)) === latencyStartTime) {
+                currentLatency = new Date().getTime() - latencyStartTime;
+                logText("WS pong received from server: " + currentLatency + "ms");
+            }
+            return;
         }
 
-        return;
-    }
+        //Process data message
+        var data = JSON.parse(ev.data).args[0];
 
-    //Process general message
-    log.textContent += "WS message received from server:\n";
-    log.textContent += ev.data;
+        //Show the data as rendered objects to consume some time
+        while (divOutputArea.hasChildNodes()) 
+            divOutputArea.removeChild(divOutputArea.lastChild);
+
+        var objs = data.data;
+        for(var i = 0; i < objs.length; i++){
+            var obj = objs[i];
+            var div = document.createElement("div");
+            var flds = Object.keys(obj);
+
+            //Create a div for the each field and its value
+            for(var j = 0; j < flds.length; j++){
+                var fld = flds[j];
+                
+                var span = document.createElement("span");
+                span.innerText = fld + ": ";
+                div.appendChild(span);
+
+                var input = document.createElement("input");
+                input.type = "text";
+                input.value = obj[fld];
+                input.style.width = "100px";
+                div.appendChild(input);
+            }
+
+            //Append object div to main
+            divOutputArea.appendChild(div);
+        }
+
+        //Update the log
+        var txt = " Server Time= " + (data.serverEndTime - data.serverStartTime);
+        txt += "; Client Time = " + (new Date().getTime() - responseStartTime);
+        logText(txt);
     };
+}
+
+function logText(text){
+    logTextArea.textContent = text + "\n" + logTextArea.textContent;
 }
 
 function ping(){
-    latencyStartTime = new Date().getTime();
-    ws.send(JSON.stringify({ call: "ping", stamp: latencyStartTime })); 
+    connect(() => {
+        latencyStartTime = new Date().getTime();
+        ws.send(JSON.stringify({ call: "ping", stamp: latencyStartTime }));
+    });         
 }
 
-function sendMessage() {
-    var data = {
-        source: "ClientWebSocket Application (client)",
-        url: document.URL
-    };
-    ws.send(JSON.stringify({call: "ping", stamp: latencyStartTime}));
+function openStream() {
+    connect(() => {
+        ws.send(JSON.stringify({call: "openDataStream", args: [100]}));
+    });
 }
+
+function closeStream() {
+    if (ws == null || ws.readyState === ws.CLOSED)
+        return;
+    clearInterval(latencySetInterval);    
+    ws.send(JSON.stringify({call: "closeDataStream"}));
+}
+
+//Start measure of latencyStartTime
+latencySetInterval = setInterval(ping, 2000);
 
 //Create the connection
 connect();
