@@ -1,7 +1,7 @@
 body {
   background: black;
   color: yellow;
-  padding: 0 10px;
+  padding: 10px;
   font-family: Arial, sans-serif;
   color: white;
 }
@@ -30,19 +30,23 @@ button {
 .divButtons {
   float:left;
   width: 300px;
-  margin-left: 20px;
   margin-right: 20px;
 }
 
 .divButtons textarea {
-  height: calc(100vh - 95px);
+  height: calc(100vh - 110px);
   width: calc(100% - 6px);
 }
 
 .divOutput{
   float:left;
-  width: calc(100% - 340px);
-  height: calc(100vh - 20px);
+  padding: 5px;
+  width: calc(100% - 330px);
+  height: calc(100vh - 45px);
   background-color: gray;
   overflow-x: auto;
+}
+
+.divOutput input {
+  margin-right: 10px;
 }
