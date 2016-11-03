@@ -2,6 +2,10 @@ const http = require('http');
 const express = require('express');
 const ws = require('ws');
 
+const routes = require('./server/routes');
+const api = require('./server/api');
+const Response = require('./server/response');
+
 //Port settings
 const webPort = 5000;
 
@@ -14,7 +18,6 @@ const wss = new ws.Server({ server: server });
 app.use(express.static('public'));
 
 //Bring in the routes
-const routes = require('./server/routes');
 app.use('/', routes);
 
 //Set up the websocket listener
@@ -23,6 +26,7 @@ wss.on('connection', (ws) => {
 
     ws.on('message', (raw) => {
         let message;
+        
         try {
             message = JSON.parse(raw);
         } catch (err) {
@@ -33,7 +37,6 @@ wss.on('connection', (ws) => {
             //keep ping request as close to the "metal" as possible
             if (message.call === "ping"){
                 ws.send("pong" + message.stamp);
-                console.log('received: %s', raw);
                 return;
             }
             
@@ -45,7 +48,8 @@ wss.on('connection', (ws) => {
                 
             let args = message.args || [];
             args.unshift(new Response(ws, message));
-            api[message.call].apply(ws, args);
+            args.unshift(ws);
+            api[message.call](...args);
         }
     });
 
