@@ -25,6 +25,7 @@ button {
   height: 30px;
   width: 100%;
   margin-bottom: 5px;
+  font-size: medium;
 }
 
 .divButtons {
@@ -36,17 +37,25 @@ button {
 .divButtons textarea {
   height: calc(100vh - 110px);
   width: calc(100% - 6px);
+  background-color: #3a3a3a;
+  color: white;
+  font-size: medium;
 }
 
 .divOutput{
   float:left;
   padding: 5px;
-  width: calc(100% - 330px);
+  width: calc(100% - 332px);
   height: calc(100vh - 45px);
-  background-color: gray;
+  background-color: #252525;
   overflow-x: auto;
+  border-color: #59618E;
+  border-width: 1px;
+  border-style: solid;
 }
 
 .divOutput input {
   margin-right: 10px;
+  background-color: #36374A;
+  color: white;
 }
