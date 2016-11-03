@@ -1,4 +1,3 @@
-const fs = require('fs');
 const http = require('http');
 const express = require('express');
 const ws = require('ws');
@@ -14,21 +13,9 @@ const wss = new ws.Server({ server: server });
 //Expose the public folder
 app.use(express.static('public'));
 
-//Install page for OpenFin Application
-app.get('/install', function(req, res, next){
-    res.sendFile('install.html', { root: 'public' });
-});
-
-//Generate app.json dynamically based on calling ip
-app.get('/app.json', function(req, res, next) {
-    fs.readFile('./public/app.template.json', 'utf8', function(err, data) {
-        //Set the json to reference ipaddress and send it back
-        let json = data;
-        json = json.replace(/<<URL_AND_PORT>>/gi, req.headers.host);
-        res.setHeader('Content-type', 'application/json');
-        res.send(json);
-    });
-});
+//Bring in the routes
+const routes = require('./server/routes');
+app.use('/', routes);
 
 //Set up the websocket listener
 wss.on('connection', (ws) => {
