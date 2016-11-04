@@ -29,7 +29,7 @@ function connect(callback) {
 
     //Listen for responses from the server
     ws.onmessage = function (ev) {
-        var responseStartTime = new Date().getTime();
+        var responseStartTime = performance.now();
 
         //Process data message
         var data = JSON.parse(ev.data).args[0];
@@ -64,8 +64,8 @@ function connect(callback) {
         }
 
         //Update the log
-        var txt = " Server Time= " + (data.serverEndTime - data.serverStartTime);
-        txt += "; Client Time = " + (new Date().getTime() - responseStartTime);
+        var txt = " Server ms: " + (data.serverEndTime - data.serverStartTime).toFixed(2);
+        txt += " Client ms: " + (performance.now() - responseStartTime).toFixed(2);
         logText(txt);
     };
 }
@@ -74,7 +74,7 @@ function connect(callback) {
 function startPingWorker(){
     pingWorker = new Worker('js/pingWorker.js');
     pingWorker.onmessage = function(e){
-        logText("WS pong received from server: " + e.data + "ms");
+        logText("Pong took: " + e.data + " ms");
     };
 }
 
