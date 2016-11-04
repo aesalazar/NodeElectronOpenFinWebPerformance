@@ -4,6 +4,7 @@ var latencyStartTime;
 var currentLatency;
 var latencySetInterval;
 var ws;
+var pingWorker;
 
 function connect(callback) {
     if (ws != null && ws.readyState === ws.OPEN) {
@@ -21,11 +22,7 @@ function connect(callback) {
     ws = new WebSocket(endpoint);
 
     ws.onopen = function(ev) {
-        logText("WS connection established: " + (ws.readyState === ws.OPEN));
-
-        //Start measure of latencyStartTime
-        latencySetInterval = setInterval(ping, 2000);
-    
+        logText("WS connection established: " + (ws.readyState === ws.OPEN));    
         if (callback != null)
             callback();
     };
@@ -33,15 +30,6 @@ function connect(callback) {
     //Listen for responses from the server
     ws.onmessage = function (ev) {
         var responseStartTime = new Date().getTime();
-
-        //See if this is a ping response
-        if (ev.data.substr(0, 4) === "pong") {
-            if (parseInt(ev.data.substr(4)) === latencyStartTime) {
-                currentLatency = new Date().getTime() - latencyStartTime;
-                logText("WS pong received from server: " + currentLatency + "ms");
-            }
-            return;
-        }
 
         //Process data message
         var data = JSON.parse(ev.data).args[0];
@@ -82,15 +70,16 @@ function connect(callback) {
     };
 }
 
-function logText(text){
-    logTextArea.textContent = text + "\n" + logTextArea.textContent;
+//Setup web worker to measure net latency
+function startPingWorker(){
+    pingWorker = new Worker('js/pingWorker.js');
+    pingWorker.onmessage = function(e){
+        logText("WS pong received from server: " + e.data + "ms");
+    };
 }
 
-function ping(){
-    connect(function() {
-        latencyStartTime = new Date().getTime();
-        ws.send(JSON.stringify({ call: "ping", stamp: latencyStartTime }));
-    });         
+function logText(text){
+    logTextArea.textContent = text + "\n" + logTextArea.textContent;
 }
 
 function openStream() {
@@ -106,5 +95,6 @@ function closeStream() {
     ws.send(JSON.stringify({call: "closeDataStream"}));
 }
 
-//Create the connection
+//Create the connections
+startPingWorker();
 connect();
