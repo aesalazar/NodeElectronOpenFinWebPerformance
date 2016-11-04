@@ -6,7 +6,7 @@
         "uuid": "NodePerfMeasure",
         "applicationIcon": "http://<<URL_AND_PORT>>/images/eikos-logo-multi.ico",
         "autoShow": true,
-        "defaultWidth": 455,
+        "defaultWidth": 460,
         "defaultHeight": 600
     },
     "runtime": {
