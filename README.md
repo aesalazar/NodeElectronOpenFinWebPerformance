@@ -16,7 +16,7 @@ Application screenshots:
     </a>    
 </div>
 
-The purpose of this project is to perform some simple time calculations for an application measuring client, server, and network latency.  A data stream is opened by the client via web-sockets on which the server sends updates at regular intervals.  The updates on the server and the client are both intentially time consuming in order to generate viable measurements (milliseconds). 
+The purpose of this project is to perform some simple time calculations for an application measuring client, server, and network latency.  A data stream is opened by the client via web-sockets on which the server sends updates at regular intervals.  The updates on the server and the client are both intentionally time consuming to generate viable measurements (milliseconds). 
 
 It is created using the chromium-based OpenFin API written in pure HTML5.  Since it is JavaScript and CSS it can also be ran in any modern web browser with 99% code reuse.
 
