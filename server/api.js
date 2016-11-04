@@ -1,4 +1,5 @@
 const BigNumber = require('bignumber.js');
+const present = require('present');
 
 //Main api logic to managing and updating connections
 const channels = new Map();
@@ -11,7 +12,7 @@ function openDataStream(websocket, response, count){
 
     //Create channel
     channels.set(websocket, (data) => {
-        const serverStartTime = new Date().getTime();
+        const serverStartTime = present();
        
         //Add new data
         const dataSet = [];
@@ -30,7 +31,7 @@ function openDataStream(websocket, response, count){
         response.send({
             data: dataSet,
             serverStartTime,
-            serverEndTime: new Date().getTime()
+            serverEndTime: present()
         });
     });    
 
