@@ -74,7 +74,7 @@ function connect(callback) {
 function startPingWorker(){
     pingWorker = new Worker('js/pingWorker.js');
     pingWorker.onmessage = function(e){
-        logText("Pong took: " + e.data + " ms");
+        logText("Ping took: " + e.data + " ms");
     };
 }
 
