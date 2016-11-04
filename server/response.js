@@ -6,11 +6,11 @@ function Response(socket, request) {
     this.request = request;
 }
 
-Response.prototype.send = function () {
+Response.prototype.send = () => {
     if (this.socket.readyState === this.socket.OPEN) {
         const json = JSON.stringify({
             id: this.request.id,
-            args: Array.from(arguments)
+            args: [...arguments]
         });
 
         this.socket.send(json);

@@ -22,7 +22,9 @@ app.use('/', routes);
 
 //Set up the websocket listener
 wss.on('connection', (ws) => {
-    console.log('Connection Established: %s\n', ws.upgradeReq.headers);
+    console.log('Connection Established:');
+    console.log(ws.upgradeReq.headers);
+    console.log('\n');
 
     ws.on('message', (raw) => {
         let message;
@@ -30,7 +32,7 @@ wss.on('connection', (ws) => {
         try {
             message = JSON.parse(raw);
         } catch (err) {
-            return console.error("Error parsing message: %s", raw);
+            return console.error("Error parsing message: %s\n", raw);
         }
 
         if (message && message.call) {
@@ -41,7 +43,7 @@ wss.on('connection', (ws) => {
             }
             
             //Process general message
-            console.log('received: %s', raw);
+            console.log('received: %s\n', raw);
 
             if (!api[message.call])
                 return;
@@ -60,5 +62,5 @@ wss.on('connection', (ws) => {
 
 //Start the server
 server.listen(process.env.PORT || webPort, () => {
-    console.log("Listening on %j", server.address());
+    console.log("Listening on %j\n", server.address());
 });
