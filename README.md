@@ -6,11 +6,11 @@ Demo application referenced in the blog post <u>SOON</u> to be found here:
 Application screenshots:
 
 <div style="text-align: center;">
-    <h2>OpenFin ScreenShot:</h2>
+    <h2>OpenFin</h2>
     <a href="public/images/OpenFinScreeny.gif" target="_blank">
         <img src="public/images/OpenFinScreeny.gif" alt="OpenFin Screen Shot" height="300" >
     </a>
-    <h2>Web Browser ScreenShot:</h2>
+    <h2>Web Browser</h2>
     <a href="public/images/WebScreeny.gif" target="_blank">
         <img src="public/images/WebScreeny.gif" alt="OpenFin Screen Shot" height="320" >
     </a>    

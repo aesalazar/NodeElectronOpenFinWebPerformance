@@ -36,7 +36,7 @@ wss.on('connection', (ws) => {
         }
 
         if (message && message.call) {
-            //keep ping request as close to the "metal" as possible
+            //keep ping request as close to the "metal" as possible (should be a separate server in production)
             if (message.call === "ping"){
                 ws.send("pong" + message.stamp);
                 return;
