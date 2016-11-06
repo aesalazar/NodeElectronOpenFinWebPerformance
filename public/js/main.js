@@ -5,6 +5,7 @@ var currentLatency;
 var latencySetInterval;
 var ws;
 var pingWorker;
+var logCount = 0;
 
 function connect(callback) {
     if (ws != null && ws.readyState === ws.OPEN) {
@@ -79,7 +80,12 @@ function startPingWorker(){
 }
 
 function logText(text){
-    logTextArea.textContent = text + "\n" + logTextArea.textContent;
+    if (++logCount < 1000){
+        logTextArea.textContent = text + "\n" + logTextArea.textContent;
+    } else {
+        logTextArea.textContent = text;
+        logCount = 1;
+    }
 }
 
 function openStream() {
