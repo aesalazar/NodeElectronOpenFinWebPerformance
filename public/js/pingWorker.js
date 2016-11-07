@@ -1,4 +1,5 @@
 var latencyStartTime;
+var isPerformanceSupported = false;
 
 //Create the url for the WebSocket
 var hostname = location.hostname;
@@ -16,14 +17,27 @@ ws.onmessage = function (ev) {
         return;
     
     if (ev.data.substr(4) === latencyStartTime.toString()) {
-        currentLatency = (performance.now() - latencyStartTime).toFixed(4);
+        currentLatency = (getStamp() - latencyStartTime).toFixed(4);
         postMessage(currentLatency);    
     }    
 };
 
 function ping(){
-    latencyStartTime = performance.now().toString();
+    latencyStartTime = getStamp();
     ws.send(JSON.stringify({ call: "ping", stamp: latencyStartTime.toString() }));
 }
 
+function detectSupport(){
+    if (typeof performance !== "undefined" && typeof performance.now !== "undefined" )
+        isPerformanceSupported = true;
+}
+
+function getStamp(){
+    if (isPerformanceSupported)
+        return performance.now();
+    else
+        return new Date().getTime();
+}
+
+detectSupport();
 setInterval(ping, 2000);
