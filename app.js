@@ -74,11 +74,11 @@ if (cluster.isMaster){
             try {
                 message = JSON.parse(raw);
             } catch (err) {
-                return console.error("Error parsing message: %s\n", raw);
+                return console.error(`Worker ${cluster.worker.id} error parsing message: ${raw}\n`);
             }
 
             //Process message
-            console.log('worker %s received: %s\n', cluster.worker.id, raw);
+            console.log(`Worker ${cluster.worker.id} received: ${raw}\n`);
             
             if (message && message.call) {
                 //keep ping request as close to the "metal" as possible (should be a separate server in production)
@@ -98,12 +98,12 @@ if (cluster.isMaster){
         });
 
         ws.on('close', (status, clientMsg) => {
-            console.log(`Client disconnected (${status}) with message: ${clientMsg}\n`);
+            console.log(`Worker ${cluster.worker.id} client disconnected (${status}) with message: ${clientMsg}\n`);
         });
     });
 
     //Start the server
     server.listen(process.env.PORT || webPort, () => {
-        console.log("Listening on %j\n", server.address());
+        console.log(`Worker ${cluster.worker.id} listening on ${JSON.stringify(server.address())}\n`);
     });
 }
