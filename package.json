@@ -4,7 +4,11 @@
   "description": "Latency Measurements of a simple Node.js project",
   "main": "app.js",
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "postinstall": "install-app-deps",
+    "electron": "electron ./app/main --enable-logging",
+    "dev": "NODE_ENV='development' npm run start",
+    "dist": "build"
   },
   "author": {
     "name": "Ernie Salazar",
@@ -18,5 +22,20 @@
     "express": "^4.14.0",
     "present": "^1.0.0",
     "ws": "^1.1.1"
+  },
+  "devDependencies": {
+    "electron": "^1.4.6",
+    "electron-builder": "^7.24.1",
+    "electron-prebuilt": "^1.4.5",
+    "electron-reload": "^1.0.3"
+  },
+  "build": {
+    "appId": "your.id",
+    "mac": {
+      "category": "eikos.partners"
+    },
+    "win": {
+      "iconUrl": "http://localhost:5000/images/eikos-logo-multi.ico"
+    }
   }
 }
