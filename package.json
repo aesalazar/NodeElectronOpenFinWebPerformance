@@ -35,12 +35,10 @@
       "appId": "eikos.partners",
       "asar": false,
       "win": {
-        "outfile": "win",
         "iconUrl": "http://localhost:5000/images/eikos-logo-multi.ico",
         "target": "nsis"
       },
       "nsis" :{
-        "outfile": "nsis",
         "oneClick": false
       }
     },
