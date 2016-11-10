@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app",
     "postinstall": "install-app-deps",
-    "electron": "electron ./app/main --enable-logging",
+    "electron": "electron ./electron/app/main --enable-logging",
     "dev": "NODE_ENV='development' npm run start",
     "dist": "build"
   },
@@ -29,13 +29,25 @@
     "electron-prebuilt": "^1.4.5",
     "electron-reload": "^1.0.3"
   },
-  "build": {
-    "appId": "your.id",
-    "mac": {
-      "category": "eikos.partners"
+  "electronBuilder": {
+    "build": {
+      "productName": "Node Performance Measure",
+      "appId": "eikos.partners",
+      "asar": false,
+      "win": {
+        "outfile": "win",
+        "iconUrl": "http://localhost:5000/images/eikos-logo-multi.ico",
+        "target": "nsis"
+      },
+      "nsis" :{
+        "outfile": "nsis",
+        "oneClick": false
+      }
     },
-    "win": {
-      "iconUrl": "http://localhost:5000/images/eikos-logo-multi.ico"
+    "directories": {
+      "output": "electron/output",
+      "app":"electron/app",
+      "buildResources": "electron/buildResources"
     }
   }
 }

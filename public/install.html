@@ -47,6 +47,9 @@
     <div>
         <input type="button" value="Download" onclick='launchInstall();' />
     </div>
+    <div>
+        <input type="button" value="Electron" onclick='downloadElectron();' />
+    </div>
 
 </body>
 </html>
@@ -57,6 +60,13 @@
         var hostname = location.hostname;
         var port = location.port.length > 0 ? "%3A" + location.port : "";
         var url = "https://install.openfin.co/download/?config=http%3A%2F%2F" + hostname + port + "%2Fapp.json";
+        window.open(url);
+    }
+
+    function downloadElectron(){
+        var hostname = location.hostname;
+        var port = location.port.length > 0 ? ":" + location.port : "";
+        var url = "http://" + hostname + port + "/electron"
         window.open(url);
     }
 
