@@ -1,7 +1,7 @@
 {
     "devtools_port": 9090,
     "startup_app": {
-        "name": "NodePerfMeasure",
+        "name": "Node Performance Measure",
         "url": "http://<<URL_AND_PORT>>/",
         "uuid": "NodePerfMeasure",
         "applicationIcon": "http://<<URL_AND_PORT>>/images/eikos-logo-multi.ico",
