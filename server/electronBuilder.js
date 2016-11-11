@@ -13,6 +13,8 @@ if (Platform.current().name === "windows")
     outputFilename += ".exe";
 else if(Platform.current().name === "mac")
     outputFilename += ".dmg";
+else if(Platform.current().name === "linux")
+    outputFilename = `${packagejson.name}-${packagejson.version}-x86_64.AppImage`;    
 
 function buildPromise(){
     //Application package.json
