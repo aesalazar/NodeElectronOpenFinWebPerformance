@@ -22,6 +22,8 @@ router.get('/electron', function(req, res, next){
                 res.setHeader('Content-type', 'application/exe, application/octet-stream');
             else if (file.substr(file.length - 3) === "dmg")
                 res.setHeader('Content-type', 'application/dmg, application/octet-stream');
+            else if (file.substr(file.length - 8) === "AppImage")
+                res.setHeader('Content-type', 'application/x-executable, application/octet-stream');
 
             res.send(data);
         }).catch((error) => {

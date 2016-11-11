@@ -40,6 +40,10 @@
       },
       "nsis" :{
         "oneClick": false
+      },
+      "linux": {
+        "target": "AppImage",
+        "category": "Development"
       }
     },
     "directories": {
