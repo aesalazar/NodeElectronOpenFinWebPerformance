@@ -13,10 +13,17 @@ router.get('/electron', function(req, res, next){
     const promise = electronBuilder
         .buildPromise()
         .then(() => {
-            console.error("BUILT!");
-            const data = fs.readFileSync(electronBuilder.outputPath);
-            //res.setHeader('Content-type', 'application/exe, application/octet-stream');
-            //res.send(data);
+            const file = electronBuilder.outputFilename;
+            const data = fs.readFileSync(`${electronBuilder.outputPath}/${file}`);
+
+            res.setHeader('Content-Disposition', `attachment; filename="${file}"`);
+
+            if(file.substr(file.length - 3) === "exe")
+                res.setHeader('Content-type', 'application/exe, application/octet-stream');
+            else if (file.substr(file.length - 3) === "dmg")
+                res.setHeader('Content-type', 'application/dmg, application/octet-stream');
+
+            res.send(data);
         }).catch((error) => {
             console.error(error);
         });

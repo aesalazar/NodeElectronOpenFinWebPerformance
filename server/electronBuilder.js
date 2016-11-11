@@ -2,10 +2,19 @@ const packagejson = require("../package.json");
 const builder = require("electron-builder");
 const Platform = builder.Platform;
 
-function buildPromise(){
-    //Development package.json, see https://goo.gl/5jVxoO
-    const devMetadata  = packagejson.electronBuilder;
+//Development package.json, see https://goo.gl/5jVxoO
+const devMetadata  = packagejson.electronBuilder;
 
+//Have to recreate output file path
+let outputPath = devMetadata.directories.output;
+let outputFilename = `${devMetadata.build.productName} Setup ${packagejson.version}`;
+
+if (Platform.current().name === "windows")
+    outputFilename += ".exe";
+else if(Platform.current().name === "mac")
+    outputFilename += ".dmg";
+
+function buildPromise(){
     //Application package.json
     const appMetadata = {
         name: packagejson.name,
@@ -15,9 +24,8 @@ function buildPromise(){
         productName: packagejson.productName
     };
 
-    //Send back promise
+    //Build for the current target and send back promise
     return builder.build({
-        targets: Platform.WINDOWS.createTarget(),
         projectDir: "./",
         devMetadata,
         appMetadata
@@ -27,5 +35,6 @@ function buildPromise(){
 
 module.exports = { 
     buildPromise,
-    outputPath : packagejson.electronBuilder.directories.output
+    outputPath,
+    outputFilename
 };
