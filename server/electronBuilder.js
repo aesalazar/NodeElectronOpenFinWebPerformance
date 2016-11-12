@@ -5,17 +5,6 @@ const Platform = builder.Platform;
 //Development package.json, see https://goo.gl/5jVxoO
 const devMetadata  = packagejson.electronBuilder;
 
-//Have to recreate output file path
-let outputPath = devMetadata.directories.output;
-let outputFilename = `${devMetadata.build.productName} Setup ${packagejson.version}`;
-
-if (Platform.current().name === "windows")
-    outputFilename += ".exe";
-else if(Platform.current().name === "mac")
-    outputFilename += ".dmg";
-else if(Platform.current().name === "linux")
-    outputFilename = `${packagejson.name}-${packagejson.version}-x86_64.AppImage`;    
-
 function buildPromise(){
     //Application package.json
     const appMetadata = {
@@ -35,8 +24,4 @@ function buildPromise(){
 
 }
 
-module.exports = { 
-    buildPromise,
-    outputPath,
-    outputFilename
-};
+module.exports = buildPromise;

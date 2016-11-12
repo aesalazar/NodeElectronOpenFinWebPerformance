@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "electron": "^1.4.6",
-    "electron-builder": "^7.24.1",
+    "electron-builder": "^8.5.1",
     "electron-prebuilt": "^1.4.5",
     "electron-reload": "^1.0.3"
   },
@@ -38,7 +38,7 @@
         "iconUrl": "http://localhost:5000/images/eikos-logo-multi.ico",
         "target": "nsis"
       },
-      "nsis" :{
+      "nsis": {
         "oneClick": false
       },
       "linux": {
@@ -48,7 +48,7 @@
     },
     "directories": {
       "output": "electron/output",
-      "app":"electron/app",
+      "app": "electron/app",
       "buildResources": "electron/buildResources"
     }
   }
