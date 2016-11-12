@@ -10,22 +10,23 @@ router.get('/install', function(req, res, next){
 
 //Install page for Electron Application
 router.get('/electron', function(req, res, next){
-    const promise = electronBuilder
-        .buildPromise()
-        .then(() => {
-            const file = electronBuilder.outputFilename;
-            const data = fs.readFileSync(`${electronBuilder.outputPath}/${file}`);
-
-            res.setHeader('Content-Disposition', `attachment; filename="${file}"`);
-
-            if(file.substr(file.length - 3) === "exe")
-                res.setHeader('Content-type', 'application/exe, application/octet-stream');
-            else if (file.substr(file.length - 3) === "dmg")
-                res.setHeader('Content-type', 'application/dmg, application/octet-stream');
-            else if (file.substr(file.length - 8) === "AppImage")
-                res.setHeader('Content-type', 'application/x-executable, application/octet-stream');
-
-            res.send(data);
+    electronBuilder()
+        .then(args => {
+            const filePath = args[0];
+            const data = fs.readFile(filePath, () => {
+                if(filePath.substr(filePath.length - 3) === "exe")
+                    res.setHeader('Content-type', 'application/exe, application/octet-stream');
+                else if (filePath.substr(filePath.length - 3) === "dmg")
+                    res.setHeader('Content-type', 'application/dmg, application/octet-stream');
+                else if (filePath.substr(filePath.length - 8) === "AppImage")
+                    res.setHeader('Content-type', 'application/x-executable, application/octet-stream');
+                else
+                    console.warn(`Unsupported file type '${filePath}'; Content-Type will be omitted from response`);
+                
+                const filename = filePath.substr(filePath.replace(/\\/g,"/").lastIndexOf("/") + 1);
+                res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+                res.send(data);
+            });
         }).catch((error) => {
             console.error(error);
         });
