@@ -13,7 +13,7 @@ router.get('/electron', function(req, res, next){
     electronBuilder()
         .then(args => {
             const filePath = args[0];
-            const data = fs.readFile(filePath, () => {
+            fs.readFile(filePath, (err, data) => {
                 if(filePath.substr(filePath.length - 3) === "exe")
                     res.setHeader('Content-type', 'application/exe, application/octet-stream');
                 else if (filePath.substr(filePath.length - 3) === "dmg")
