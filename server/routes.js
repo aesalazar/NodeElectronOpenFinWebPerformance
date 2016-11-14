@@ -1,7 +1,13 @@
-var express = require('express');
-var router = express.Router();
-var fs = require('fs');
-var electronBuilder = require('./electronBuilder');
+const express = require('express');
+const router = express.Router();
+const fs = require('fs');
+const electronBuilder = require('./electronBuilder');
+
+const mimes = new Map();
+mimes.set("exe", "exe");
+mimes.set("dmg", "dmg");
+mimes.set("zip", "zip");
+mimes.set("AppImage", "x-executable");
 
 //Install page for OpenFin Application
 router.get('/install', function(req, res, next){
@@ -14,14 +20,12 @@ router.get('/electron', function(req, res, next){
         .then(args => {
             const filePath = args[0];
             fs.readFile(filePath, (err, data) => {
-                if(filePath.substr(filePath.length - 3) === "exe")
-                    res.setHeader('Content-type', 'application/exe, application/octet-stream');
-                else if (filePath.substr(filePath.length - 3) === "dmg")
-                    res.setHeader('Content-type', 'application/dmg, application/octet-stream');
-                else if (filePath.substr(filePath.length - 8) === "AppImage")
-                    res.setHeader('Content-type', 'application/x-executable, application/octet-stream');
+                const ext = filePath.substr(filePath.lastIndexOf(".") + 1);
+                
+                if (mimes.has(ext))
+                    res.setHeader('Content-type', `application/${mimes.get(ext)}, application/octet-stream`);
                 else
-                    console.warn(`Unsupported file type '${filePath}'; Content-Type will be omitted from response`);
+                    console.warn(`Unsupported file type '${ext}' in file '${filePath}'; Content-Type will be omitted from response`);
                 
                 const filename = filePath.substr(filePath.replace(/\\/g,"/").lastIndexOf("/") + 1);
                 res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
