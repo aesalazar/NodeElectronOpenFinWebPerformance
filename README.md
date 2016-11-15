@@ -1,5 +1,11 @@
 ﻿# Performance Measurements in Node.js, OpenFin, Electron, and Web
-Demostrates the ability of a single node.js server with a single code-based to be ran in OpenFin and Electron desktop applications as well as any web browser simultaneously.  It is also the demo application referenced in the blog post here:
+This project is intended to demostrate the ability of a single node.js server with a single code-based to run in OpenFin and Electron desktop applications as well as any modern web browser simultaneously.
+
+The OpenFin runtime is currently only available for the Windows OS but the company promises to release Mac and Linux versions in the near future.
+
+The Electron version will compile and run based on the OS you are running this project in.  It has been tested with in Windows 10, Mac OS X, and Unbuntu Desktop 16 LTS.
+
+A more detailed brakedown of the code can be read here:
 
 * <a href="http://www.eikospartners.com/blog/measuring-application-performance-nodejs-web-openfin" target="_blank">Measuring application performance in Node.js, Web and OpenFin</a>
 
@@ -20,11 +26,11 @@ Application screenshots:
     </a>    
 </div>
 
-The purpose of this project is to perform some simple time calculations for an application measuring client, server, and network latency.  A data stream is opened by the client via web-sockets on which the server sends updates at regular intervals.  The updates on the server and the client are both intentionally time consuming to generate viable measurements (milliseconds). 
+The project itself performs basic time calculations measuring client, server, and network latencies.  A data stream is opened by the client via web-sockets upon which the server sends updates at regular intervals.  The updates on the server and the client are both intentionally time consuming so as to generate viable measurements (milliseconds). 
 
-It is created using the chromium-based OpenFin API and open source Electron API both of which use pure HTML5.  Since it is JavaScript and CSS it can also be ran in any modern web browser with 99% code reuse.
+Since they are running inside chromium-based OpenFin and Electron APIs they can be written using pure HTML5.  And becuase it is JavaScript and CSS the code can also be ran in any modern web browser achieving greater than 99% reuse.
 
-This was built in Visual Studios Code but can be ran like any other node project.  It is using node.js version 6 and the client requires support for Web Workers and the performance.now() function.  To start remember to first run 
+This was built in Visual Studio Code but can be ran like any other node project.  It is using node.js version 6 and the client requires support for Web Workers and the performance.now() function.  To start remember to first run 
 
 `npm install` 
 
@@ -45,7 +51,7 @@ For OpenFin and Electron installations, navigate to `http://www.localhost.com:50
 
 For the web version, simply navigate to `http://www.localhost.com:5000/`.  This will show the same single page seen in the desktop versions.
 
-In each application click the Open Data Stream button to begin generating time measurements.
+In any application click the Open Data Stream button to begin generating time measurements.
 
 Additional resources:
 
