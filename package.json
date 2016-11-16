@@ -29,7 +29,7 @@
   "electronBuilder": {
     "build": {
       "productName": "Node Performance Measure",
-      "appId": "eikos.partners",
+      "appId": "EikosPartners.NodePerformanceMeasure",
       "asar": false,
       "win": {
         "iconUrl": "http://localhost:5000/images/eikos-logo-multi.ico",
