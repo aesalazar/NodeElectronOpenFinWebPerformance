@@ -36,7 +36,8 @@
         "target": "nsis"
       },
       "nsis": {
-        "oneClick": false
+        "oneClick": false,
+        "allowElevation": false
       },
       "linux": {
         "target": "AppImage",
