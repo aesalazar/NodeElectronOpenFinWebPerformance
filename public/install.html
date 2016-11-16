@@ -55,7 +55,7 @@
     </div>
     <div>
         <input type="button" value="Electron" onclick='downloadElectron();' />
-        <span>Electron Version Installer (takes 1-2 minutes)</span>
+        <span id="spanElectron">Build Electron Version Installer for detected OS:</span>
     </div>
     <div>
         <input type="button" value="Browser" onclick='openWeb();' />
@@ -65,6 +65,17 @@
 </html>
 
 <script type="text/javascript">
+    var osdetect = "UNKNOW!";
+    var platform = navigator.platform.toLowerCase();
+
+    if (platform.indexOf("win") >= 0) 
+        osdetect="Windows";
+    else if (platform.indexOf("mac") >= 0) 
+        osdetect = "MacOS";
+    else if (platform.indexOf("linux") >= 0) 
+        osdetect = "Linux";
+
+    document.getElementById("spanElectron").innerHTML += " <i><strong>" + osdetect + "</strong></i>";
 
     function downloadOpenFin() {
         var hostname = location.hostname;
