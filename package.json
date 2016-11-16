@@ -5,9 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app",
-    "electron": "electron ./electron/app/main --enable-logging",
-    "dev": "NODE_ENV='development' npm run start",
-    "dist": "build"
+    "electron": "electron ./electron/app/main --enable-logging"
   },
   "author": {
     "name": "Ernie Salazar",
