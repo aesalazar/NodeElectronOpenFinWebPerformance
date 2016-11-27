@@ -1,11 +1,11 @@
 ﻿# Performance Measurements in Node.js, OpenFin, Electron, and Web
-This project is intended to demostrate the ability of a single node.js server with a single code-based to run in OpenFin and Electron desktop applications as well as any modern web browser simultaneously.
+This project is intended to demonstrate the ability of a single node.js server with a single code-based to run in OpenFin and Electron desktop applications as well as any modern web browser simultaneously.
 
-The OpenFin RVM (the ability to dynmaically build the installation package via URL) is currently only available for the Windows OS but the company promises to release Mac and Linux versions in the near future.  But if you wish to run in those OSs you can manually launch following these instructions: <a target="_blank" href="https://github.com/openfin/openfin-cli">OpenFin CLI for Windows, Mac, and Linux</a>
+The OpenFin RVM (the ability to dynamically build the installation package via URL) is currently only available for the Windows OS but the company promises to release Mac and Linux versions in the near future.  But if you wish to run in those OSs you can manually launch following these instructions: <a target="_blank" href="https://github.com/openfin/openfin-cli">OpenFin CLI for Windows, Mac, and Linux</a>
 
-The Electron version will compile and run based on the OS you are running this project in.  It has been tested with in Windows 10, Mac OS X, and Unbuntu Desktop 16 LTS.
+The Electron version will compile and run based on the OS you are running this project in.  It has been tested with in Windows 10, Mac OS X, and Ubuntu Desktop 16 LTS.
 
-A more detailed brakedown of the code can be read here:
+A more detailed breakdown of the code can be read here:
 
 * <a href="http://www.eikospartners.com/blog/measuring-application-performance-nodejs-web-openfin" target="_blank">Measuring application performance in Node.js, Web and OpenFin</a>
 
@@ -28,7 +28,7 @@ Application screenshots:
 
 The project itself performs basic time calculations measuring client, server, and network latencies.  A data stream is opened by the client via web-sockets upon which the server sends updates at regular intervals.  The updates on the server and the client are both intentionally time consuming so as to generate viable measurements (milliseconds). 
 
-Since they are running inside chromium-based OpenFin and Electron APIs they can be written using pure HTML5.  And becuase it is JavaScript and CSS the code can also be ran in any modern web browser achieving greater than 99% reuse.
+Since they are running inside chromium-based OpenFin and Electron APIs they can be written using pure HTML5.  And because it is JavaScript and CSS the code can also be ran in any modern web browser achieving greater than 99% reuse.
 
 This was built in Visual Studio Code but can be ran like any other node project.  It is using node.js version 6 and the client requires support for Web Workers and the performance.now() function.  To start remember to first run 
 
