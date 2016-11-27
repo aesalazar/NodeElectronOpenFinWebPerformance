@@ -1,7 +1,7 @@
 ﻿# Performance Measurements in Node.js, OpenFin, Electron, and Web
 This project is intended to demostrate the ability of a single node.js server with a single code-based to run in OpenFin and Electron desktop applications as well as any modern web browser simultaneously.
 
-The OpenFin runtime is currently only available for the Windows OS but the company promises to release Mac and Linux versions in the near future.
+The OpenFin RVM (the ability to dynmaically build the installation package via URL) is currently only available for the Windows OS but the company promises to release Mac and Linux versions in the near future.  But if you wish to run in those OSs you can manually launch following these instructions: <a target="_blank" href="https://github.com/openfin/openfin-cli">OpenFin CLI for Windows, Mac, and Linux</a>
 
 The Electron version will compile and run based on the OS you are running this project in.  It has been tested with in Windows 10, Mac OS X, and Unbuntu Desktop 16 LTS.
 
