@@ -69,8 +69,8 @@ function startStreamer(dataCount){
 //Provide some random string data based on length
 function randomString(length)
 {
-    var str = "";
-    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let str = "";
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     for(let i = 0; i < length; i++)
         str += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -78,16 +78,16 @@ function randomString(length)
     return str;
 }
 
-//Provies a random number between the min and max values
+//Provides a random number between the min and max values
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 //Provide a fibonacci number based on n
 function fibonacci(n) {
-    var fibs = [0, 1];
+    let fibs = [0, 1];
 
-    for (var i = 2; i <= n; i++)
+    for (let i = 2; i <= n; i++)
         fibs.push(fibs[i - 1] + fibs[i - 2]);
 
     return fibs;
@@ -95,9 +95,9 @@ function fibonacci(n) {
 
 //Sum an array of numbers and returns BigNumber
 function sumArray(arr){
-    var num = new BigNumber(0);
+    let num = new BigNumber(0);
 
-    //toString will surpress errors when num >15 sigfigs; technically this could truncate/round
+    //toString will suppress errors when num >15 sig-figs; technically this could truncate/round
     for(let val of arr)
         num = num.add(val.toString());
     
