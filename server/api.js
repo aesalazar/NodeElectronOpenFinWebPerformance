@@ -41,7 +41,6 @@ function openDataStream(websocket, response, count){
 
 function closeDataStream(websocket, response){
     removeChannel(websocket);
-    websocket.close();
 }
 
 //Clear any instance of the socket from the channels map
