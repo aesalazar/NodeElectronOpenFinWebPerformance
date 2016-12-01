@@ -6,7 +6,6 @@ var ws;
 var pingWorker;
 var logCount = 0;
 var connectionInterval;
-var streamOpen = false;
 
 function connect(callback) {
     if (ws != null && ws.readyState === ws.OPEN) {
@@ -33,7 +32,7 @@ function connect(callback) {
     ws.onclose = function(ev){
         if (ev.code !== 1000) {
             logText("WS connection closed, retrying...");
-            connectionInterval = setTimeout(openConnection, 1000);
+            connectionInterval = setTimeout(attemptReconnect, 1000);
         }
                
     };
@@ -104,7 +103,7 @@ function logText(text){
 function openStream() {
     connect(function() {
         ws.send(JSON.stringify({call: "openDataStream", args: [100]}));
-        streamOpen = true;
+        sessionStorage.setItem("streamOpen", "true");
     });
 }
 
@@ -112,13 +111,16 @@ function closeStream() {
     if (ws == null || ws.readyState === ws.CLOSED)
         return;
     ws.send(JSON.stringify({call: "closeDataStream"}));
-    streamOpen = false;
+    sessionStorage.setItem("streamOpen", "false");
 }
 
-function openConnection(){
-    //Create the connections
-    startPingWorker();
-    connect(function(){ if (streamOpen) openStream(); });
+function attemptReconnect(){
+    //Force a refresh in case something was changed on the server
+    connect(function(){ document.location.reload(); });
 }
 
-connectionInterval = setTimeout(openConnection, 1000);
+startPingWorker();
+connect(function(){
+    if (sessionStorage.getItem("streamOpen") === "true") 
+        openStream(); 
+});
