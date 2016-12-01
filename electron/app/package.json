@@ -1,3 +1,4 @@
 {
-    "main": "main.js"
+    "main": "main.js",
+    "endPoint": "http://localhost:5000/"
 }

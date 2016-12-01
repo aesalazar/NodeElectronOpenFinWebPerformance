@@ -1,13 +1,14 @@
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
+const packageJson = require("./package.json");
 
 let mainWindow;
 
 function createWindow () {
   mainWindow = new BrowserWindow({width: 800, height: 600});
 
-  mainWindow.loadURL("http://localhost:5000/");
+  mainWindow.loadURL(packageJson.endPoint);
 
   mainWindow.on('closed', function () {
     mainWindow = null;
