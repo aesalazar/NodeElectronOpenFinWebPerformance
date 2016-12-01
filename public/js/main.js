@@ -5,6 +5,8 @@ var currentLatency;
 var ws;
 var pingWorker;
 var logCount = 0;
+var connectionInterval;
+var streamOpen = false;
 
 function connect(callback) {
     if (ws != null && ws.readyState === ws.OPEN) {
@@ -23,8 +25,17 @@ function connect(callback) {
 
     ws.onopen = function(ev) {
         logText("WS connection established: " + (ws.readyState === ws.OPEN));    
+        clearInterval(connectionInterval);
         if (callback != null)
             callback();
+    };
+
+    ws.onclose = function(ev){
+        if (ev.code !== 1000) {
+            logText("WS connection closed, retrying...");
+            connectionInterval = setTimeout(openConnection, 1000);
+        }
+               
     };
 
     //Listen for responses from the server
@@ -72,6 +83,9 @@ function connect(callback) {
 
 //Setup web worker to measure net latency
 function startPingWorker(){
+    if (pingWorker)
+        pingWorker.terminate();
+
     pingWorker = new Worker('js/pingWorker.js');
     pingWorker.onmessage = function(e){
         logText("Ping took: " + e.data + " ms");
@@ -90,6 +104,7 @@ function logText(text){
 function openStream() {
     connect(function() {
         ws.send(JSON.stringify({call: "openDataStream", args: [100]}));
+        streamOpen = true;
     });
 }
 
@@ -97,8 +112,13 @@ function closeStream() {
     if (ws == null || ws.readyState === ws.CLOSED)
         return;
     ws.send(JSON.stringify({call: "closeDataStream"}));
+    streamOpen = false;
 }
 
-//Create the connections
-startPingWorker();
-connect();
+function openConnection(){
+    //Create the connections
+    startPingWorker();
+    connect(function(){ if (streamOpen) openStream(); });
+}
+
+connectionInterval = setTimeout(openConnection, 1000);
