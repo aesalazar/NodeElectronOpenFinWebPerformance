@@ -2,7 +2,6 @@ var logTextArea = document.getElementById("logTextArea");
 var divOutputArea = document.getElementById("divOutputArea");
 var latencyStartTime;
 var currentLatency;
-var latencySetInterval;
 var ws;
 var pingWorker;
 var logCount = 0;
@@ -97,7 +96,6 @@ function openStream() {
 function closeStream() {
     if (ws == null || ws.readyState === ws.CLOSED)
         return;
-    clearInterval(latencySetInterval);    
     ws.send(JSON.stringify({call: "closeDataStream"}));
 }
 
