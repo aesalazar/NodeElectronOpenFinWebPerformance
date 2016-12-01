@@ -8,6 +8,7 @@ var port = location.port.length > 0 ? ":" + location.port : "";
 //Open the connection to the server
 var endpoint = "ws://" + hostname + port + "/";
 var ws = new WebSocket(endpoint);
+var pingingInterval;
 
 //Listen for responses from the server
 ws.onmessage = function (ev) {
@@ -20,6 +21,10 @@ ws.onmessage = function (ev) {
         currentLatency = (getStamp() - latencyStartTime).toFixed(4);
         postMessage(currentLatency);    
     }    
+};
+
+ws.onclose = function(ev){
+    clearInterval(pingingInterval);
 };
 
 function ping(){
@@ -40,4 +45,4 @@ function getStamp(){
 }
 
 detectSupport();
-setInterval(ping, 2000);
+pingingInterval = setInterval(ping, 2000);
