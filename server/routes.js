@@ -22,7 +22,7 @@ router.get('/electron', function(req, res, next){
 
 //Generate app.json dynamically based on calling ip
 router.get('/app.json', function(req, res, next) {
-    fs.readFile('./public/app.template.json', 'utf8', function(err, data) {
+    fs.readFile('./server/template.app.json', 'utf8', function(err, data) {
         //Set the json to reference ipaddress and send it back
         let json = data;
         json = json.replace(/<<URL_AND_PORT>>/gi, req.headers.host);
