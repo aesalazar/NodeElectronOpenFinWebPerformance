@@ -5,9 +5,10 @@ The OpenFin RVM (the ability to dynamically build the installation package via U
 
 The Electron version will compile and run based on the OS you are running this project in.  It has been tested with in Windows 10, Mac OS X, and Ubuntu Desktop 16 LTS.
 
-A more detailed breakdown of the code can be read here:
+More detailed breakdowns of different parts of the code can be read here:
 
 * <a href="http://www.eikospartners.com/blog/measuring-application-performance-nodejs-web-openfin" target="_blank">Measuring application performance in Node.js, Web and OpenFin</a>
+* <a href="http://www.eikospartners.com/blog/electron-create-a-single-app-for-windows-linux-and-mac" target="_blank">Electron: Create a single app for Windows, Linux, and Mac</a>
 
 Application screenshots:
 
