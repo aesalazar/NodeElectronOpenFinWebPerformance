@@ -5,7 +5,7 @@ var currentLatency;
 var ws;
 var pingWorker;
 var logCount = 0;
-var connectionInterval;
+var reconnectInterval;
 
 function connect(callback) {
     if (ws != null && ws.readyState === ws.OPEN) {
@@ -24,7 +24,7 @@ function connect(callback) {
 
     ws.onopen = function(ev) {
         logText("WS connection established: " + (ws.readyState === ws.OPEN));    
-        clearInterval(connectionInterval);
+        clearInterval(reconnectInterval);
         if (callback != null)
             callback();
     };
@@ -32,7 +32,7 @@ function connect(callback) {
     ws.onclose = function(ev){
         if (ev.code !== 1000) {
             logText("WS connection closed, retrying...");
-            connectionInterval = setTimeout(attemptReconnect, 1000);
+            reconnectInterval = setTimeout(attemptReconnect, 1000);
         }
                
     };
