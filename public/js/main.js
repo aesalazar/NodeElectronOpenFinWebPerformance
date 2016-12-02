@@ -1,7 +1,5 @@
 var logTextArea = document.getElementById("logTextArea");
 var divOutputArea = document.getElementById("divOutputArea");
-var latencyStartTime;
-var currentLatency;
 var ws;
 var pingWorker;
 var logCount = 0;
