@@ -3,7 +3,6 @@ var divOutputArea = document.getElementById("divOutputArea");
 var ws;
 var pingWorker;
 var logCount = 0;
-var reconnectInterval;
 
 function connect(callback) {
     if (ws != null && ws.readyState === ws.OPEN) {
@@ -22,7 +21,6 @@ function connect(callback) {
 
     ws.onopen = function(ev) {
         logText("WS connection established: " + (ws.readyState === ws.OPEN));    
-        clearInterval(reconnectInterval);
         if (callback != null)
             callback();
     };
@@ -30,7 +28,7 @@ function connect(callback) {
     ws.onclose = function(ev){
         if (ev.code !== 1000) {
             logText("WS connection closed, retrying...");
-            reconnectInterval = setTimeout(attemptReconnect, 1000);
+            setTimeout(attemptReconnect, 1000);
         }
                
     };
