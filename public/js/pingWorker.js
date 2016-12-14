@@ -18,7 +18,7 @@ ws.onmessage = function (ev) {
         return;
     
     if (ev.data.substr(4) === latencyStartTime.toString()) {
-        currentLatency = (getStamp() - latencyStartTime).toFixed(4);
+        const currentLatency = (getStamp() - latencyStartTime).toFixed(4);
         postMessage(currentLatency);    
     }    
 };
