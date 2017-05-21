@@ -48,9 +48,17 @@ Once started, it will create an HTTP and WebSocket server listening on port:
 const webPort = 5000;
 ```
 
-For OpenFin and Electron installations, navigate to `http://www.localhost.com:5000/install`, click the Download buttons and follow the instructions to complete installation.
+To test electron in development without having to build the installation package run:
 
-For the web version, simply navigate to `http://www.localhost.com:5000/`.  This will show the same single page seen in the desktop versions.
+`npm run electron`
+
+To test the openfin in development via the CLI (note this will still perform an installation) run:
+
+`npm run openfin`
+
+For OpenFin and Electron installation packages, navigate to `http://localhost:5000/install`, click the Download buttons and follow the instructions to complete installation.  For electron it can take a minute or so to build the package once started but the browser will prompt for download when ready.  
+
+For the web version, simply navigate to `http://localhost:5000/`.  This will show the same single page seen in the desktop versions.
 
 In any application click the Open Data Stream button to begin generating time measurements.
 
